@@ -1,5 +1,7 @@
 package lt.savin.poker.model;
 
+import lt.savin.poker.HandEvaluator;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,5 +36,10 @@ public class Game {
 
     public void setPlayer2Hand(List<String> StringPlayer2Cards) {
         this.player2Hand = convertStringToPlayerHand(StringPlayer2Cards);
+    }
+
+    public void declareGameOutcome() {
+        HandEvaluator handEvaluatorP1 = new HandEvaluator(player1Hand);
+        HandEvaluator handEvaluatorP2 = new HandEvaluator(player2Hand);
     }
 }

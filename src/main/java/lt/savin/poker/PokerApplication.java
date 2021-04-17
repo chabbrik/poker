@@ -29,7 +29,7 @@ public class PokerApplication {
 				.map(Game::new)
 				.collect(Collectors.toList());
 
-		System.out.println(games);
+		games.forEach(Game::declareGameOutcome);
 	}
 
 
