@@ -22,24 +22,19 @@ public class Game {
         return cardCodes.stream().map(Card::new).collect(Collectors.toList());
     }
 
-    public List<Card> getPlayer1Hand() {
-        return player1Hand;
-    }
-
-    public void setPlayer1Hand(List<String> StringPlayer1Cards) {
+    private void setPlayer1Hand(List<String> StringPlayer1Cards) {
         this.player1Hand = convertStringToPlayerHand(StringPlayer1Cards);
     }
 
-    public List<Card> getPlayer2Hand() {
-        return player2Hand;
-    }
-
-    public void setPlayer2Hand(List<String> StringPlayer2Cards) {
+    private void setPlayer2Hand(List<String> StringPlayer2Cards) {
         this.player2Hand = convertStringToPlayerHand(StringPlayer2Cards);
     }
 
     public void declareGameOutcome() {
         HandEvaluator handEvaluatorP1 = new HandEvaluator(player1Hand);
         HandEvaluator handEvaluatorP2 = new HandEvaluator(player2Hand);
+
+        System.out.print("Player 1 combo: " + handEvaluatorP1.getWinningCombination());
+        System.out.println("   Player 2 combo: " + handEvaluatorP2.getWinningCombination());
     }
 }
