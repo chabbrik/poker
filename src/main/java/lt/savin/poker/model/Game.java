@@ -30,11 +30,38 @@ public class Game {
         this.player2Hand = convertStringToPlayerHand(StringPlayer2Cards);
     }
 
-    public void declareGameOutcome() {
+    private int compareCombos() {
         HandEvaluator handEvaluatorP1 = new HandEvaluator(player1Hand);
         HandEvaluator handEvaluatorP2 = new HandEvaluator(player2Hand);
+        Combo p1Combo = handEvaluatorP1.getWinningCombination();
+        Combo p2Combo = handEvaluatorP2.getWinningCombination();
 
-        System.out.print("Player 1 combo: " + handEvaluatorP1.getWinningCombination());
-        System.out.println("   Player 2 combo: " + handEvaluatorP2.getWinningCombination());
+        if (p1Combo.getWeight() == p2Combo.getWeight()) {
+            return breakTie(handEvaluatorP1, handEvaluatorP2);
+        } else if (p1Combo.getWeight() > p2Combo.getWeight()){
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    private int breakTie(HandEvaluator handEvaluatorP1, HandEvaluator handEvaluatorP2) {
+        if (handEvaluatorP1.getWinningCombination() == Combo.HIGH_CARD) {
+            if (handEvaluatorP1.getHighestCard() == handEvaluatorP2.getHighestCard()) {
+                return 0;
+            } else if (handEvaluatorP1.getHighestCard() > handEvaluatorP2.getHighestCard()) {
+                return 1;
+            } else {
+                return 2;
+            }
+        } else {
+
+        }
+        return 0;
+    }
+
+    public void declareGameOutcome() {
+        int winner = compareCombos();
+        System.out.println("Player " + winner + " wins");
     }
 }
