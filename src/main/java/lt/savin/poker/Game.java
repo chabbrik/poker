@@ -77,8 +77,9 @@ public class Game {
         return 0;
     }
 
-    public void declareGameOutcome() {
+    public int declareGameOutcome() {
         int winner = compareCombos();
         logger.info("Player {} wins", winner);
+        return winner;
     }
 }
