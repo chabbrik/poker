@@ -10,17 +10,17 @@ import static lt.savin.poker.PokerApplication.HAND_SIZE;
 public class HandEvaluator {
     private static final int FLUSH_SIZE = 5;
     private static final int STRAIGHT_HAND_DISTANCE = 4;
-    Map<Rank, Long> ranksCounters = new HashMap<>();
-    Map<Suit, Long> suitCounters = new HashMap<>();
-    List<Long> rankList;
+    Map<Rank, Integer> ranksCounters = new HashMap<>();
+    Map<Suit, Integer> suitCounters = new HashMap<>();
+    List<Integer> rankList;
     List<RankFrequency> frequencyList;
 
     /* I am using object to have null type before calculation is done */
     Boolean isFlush = null;
     Boolean isStraight = null;
 
-    private int calculateRankDistance(List<Long> rankList) {
-        return (int) (getHighestCard() - rankList.get(0));
+    private int calculateRankDistance(List<Integer> rankList) {
+        return getHighestCard() - rankList.get(0);
     }
 
     private boolean isStraight() {
@@ -45,10 +45,10 @@ public class HandEvaluator {
             return isFlush;
         }
 
-        // Looking if any suit repeats 5 times within a hand.
-        List<Map.Entry<Suit, Long>> flush =
+        /* Looking if any suit repeats 5 times within a hand. */
+        List<Map.Entry<Suit, Integer>> flush =
                 suitCounters.entrySet().stream()
-                        .filter(suit -> suit.getValue().intValue() == FLUSH_SIZE)
+                        .filter(suit -> suit.getValue() == FLUSH_SIZE)
                         .collect(Collectors.toList());
         isFlush = flush.size() > 0;
         return isFlush;
@@ -128,7 +128,7 @@ public class HandEvaluator {
     }
 
     public int getHighestCard() {
-        return rankList.get(rankList.size()-1).intValue();
+        return rankList.get(rankList.size() - 1);
     }
 
     public List<RankFrequency> getFrequencyList() {
@@ -137,8 +137,8 @@ public class HandEvaluator {
 
     public HandEvaluator(List<Card> playerHand) {
         playerHand.forEach(card -> {
-            ranksCounters.merge(card.getRank(), 1L, Long::sum);
-            suitCounters.merge(card.getSuit(), 1L, Long::sum);
+            ranksCounters.merge(card.getRank(), 1, Integer::sum);
+            suitCounters.merge(card.getSuit(), 1, Integer::sum);
         });
 
 

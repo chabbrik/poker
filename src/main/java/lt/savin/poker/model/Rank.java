@@ -1,6 +1,10 @@
 package lt.savin.poker.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public enum Rank {
+
     TWO('2'),
     THREE('3'),
     FOUR('4'),
@@ -15,13 +19,14 @@ public enum Rank {
     KING('K'),
     ACE('A');
 
-    public long getValue() {
+    public int getValue() {
         return value;
     }
 
-    long value;
+    private int value;
 
     Rank(char code) {
+        Logger logger = LoggerFactory.getLogger(Rank.class);
         switch (code) {
             case '2' -> this.value = 2;
             case '3' -> this.value = 3;
@@ -36,6 +41,7 @@ public enum Rank {
             case 'Q' -> this.value = 12;
             case 'K' -> this.value = 13;
             case 'A' -> this.value = 14;
+            default -> logger.error("Unrecognised character: " + code);
         }
     }
 }

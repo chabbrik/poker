@@ -1,6 +1,8 @@
-package lt.savin.poker.model;
+package lt.savin.poker;
 
-import lt.savin.poker.HandEvaluator;
+import lt.savin.poker.model.Card;
+import lt.savin.poker.model.Combo;
+import lt.savin.poker.model.RankFrequency;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,9 +42,9 @@ public class Game {
         Combo p1Combo = handEvaluatorP1.getWinningCombination();
         Combo p2Combo = handEvaluatorP2.getWinningCombination();
 
-//        logger.info("Hands: P1: {} P2: {}", player1Hand, player2Hand);
+        logger.info("Hands: P1: {} P2: {}", player1Hand, player2Hand);
         if (p1Combo.getWeight() == p2Combo.getWeight()) {
-//            logger.info("Breaking a tie: P1: {} P2: {}", p1Combo, p2Combo);
+            logger.info("Breaking a tie: P1: {} P2: {}", p1Combo, p2Combo);
             return breakTie(handEvaluatorP1, handEvaluatorP2);
         } else if (p1Combo.getWeight() > p2Combo.getWeight()){
             return 1;

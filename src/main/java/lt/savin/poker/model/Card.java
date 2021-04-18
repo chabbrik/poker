@@ -1,6 +1,11 @@
 package lt.savin.poker.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Card {
+    private static final Logger logger = LoggerFactory.getLogger(Card.class);
+
     Rank rank;
     Suit suit;
 
@@ -11,7 +16,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return ""+rank+suit;
+        return rank + " " + suit;
     }
 
     public Rank getRank() {
@@ -28,6 +33,7 @@ public class Card {
             case 'C' -> suit = Suit.CLUB;
             case 'D' -> suit = Suit.DIAMOND;
             case 'H' -> suit = Suit.HEART;
+            default -> logger.error("Unrecognised character: " + code);
         }
     }
 
@@ -46,7 +52,7 @@ public class Card {
             case 'Q' -> rank = Rank.QUEEN;
             case 'K' -> rank = Rank.KING;
             case 'A' -> rank = Rank.ACE;
-            default -> System.out.println("Unrecognised character: " + code);
+            default -> logger.error("Unrecognised character: " + code);
         }
     }
 }

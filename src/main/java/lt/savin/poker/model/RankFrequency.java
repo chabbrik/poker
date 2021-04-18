@@ -12,8 +12,8 @@ public class RankFrequency {
         return frequency;
     }
 
-    public RankFrequency(Rank key, Long value) {
+    public RankFrequency(Rank key, Integer value) {
         this.rank = key;
-        this.frequency = value.intValue();
+        this.frequency = value;
     }
 }
