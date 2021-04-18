@@ -1,8 +1,6 @@
 package lt.savin.poker;
 
 import lt.savin.poker.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -10,11 +8,8 @@ import java.util.stream.Collectors;
 import static lt.savin.poker.PokerApplication.HAND_SIZE;
 
 public class HandEvaluator {
-    private static final Logger logger = LoggerFactory.getLogger(HandEvaluator.class);
-
     private static final int FLUSH_SIZE = 5;
     private static final int STRAIGHT_HAND_DISTANCE = 4;
-    private final List<Card> playerHand;
     Map<Rank, Long> ranksCounters = new HashMap<>();
     Map<Suit, Long> suitCounters = new HashMap<>();
     List<Long> rankList;
@@ -136,12 +131,11 @@ public class HandEvaluator {
         return rankList.get(rankList.size()-1).intValue();
     }
 
-    public void getComboRanks() {
-
+    public List<RankFrequency> getFrequencyList() {
+        return frequencyList;
     }
 
     public HandEvaluator(List<Card> playerHand) {
-        this.playerHand = playerHand;
         playerHand.forEach(card -> {
             ranksCounters.merge(card.getRank(), 1L, Long::sum);
             suitCounters.merge(card.getSuit(), 1L, Long::sum);

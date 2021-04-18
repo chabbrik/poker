@@ -1,6 +1,8 @@
 package lt.savin.poker.model;
 
 import lt.savin.poker.HandEvaluator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +11,8 @@ import java.util.stream.Collectors;
 import static lt.savin.poker.PokerApplication.HAND_SIZE;
 
 public class Game {
+    private static final Logger logger = LoggerFactory.getLogger(HandEvaluator.class);
+
     List<Card> player1Hand;
     List<Card> player2Hand;
 
@@ -36,7 +40,9 @@ public class Game {
         Combo p1Combo = handEvaluatorP1.getWinningCombination();
         Combo p2Combo = handEvaluatorP2.getWinningCombination();
 
+//        logger.info("Hands: P1: {} P2: {}", player1Hand, player2Hand);
         if (p1Combo.getWeight() == p2Combo.getWeight()) {
+//            logger.info("Breaking a tie: P1: {} P2: {}", p1Combo, p2Combo);
             return breakTie(handEvaluatorP1, handEvaluatorP2);
         } else if (p1Combo.getWeight() > p2Combo.getWeight()){
             return 1;
@@ -55,13 +61,22 @@ public class Game {
                 return 2;
             }
         } else {
+            List<RankFrequency> freqL1 = handEvaluatorP1.getFrequencyList();
+            List<RankFrequency> freqL2 = handEvaluatorP2.getFrequencyList();
 
+            for (int i = 0; i < Math.min(freqL1.size(), freqL2.size()); i++) {
+                if (freqL1.get(i).getRank().getValue() > freqL2.get(i).getRank().getValue()) {
+                    return 1;
+                } else if (freqL1.get(i).getRank().getValue() < freqL2.get(i).getRank().getValue()) {
+                    return 2;
+                }
+            }
         }
         return 0;
     }
 
     public void declareGameOutcome() {
         int winner = compareCombos();
-        System.out.println("Player " + winner + " wins");
+        logger.info("Player {} wins", winner);
     }
 }
