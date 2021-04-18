@@ -12,10 +12,13 @@ public enum Combo {
     PAIR(2),
     HIGH_CARD(1);
 
-    int weight;
+    public int getWeight() {
+        return weight;
+    }
+
+    private final int weight;
 
     Combo(int weight) {
         this.weight = weight;
     }
-
 }
