@@ -76,10 +76,6 @@ public class HandEvaluator {
             return Combo.FLUSH;
         }
 
-        if (isStraightFlush()) {
-            return Combo.STRAIGHT_FLUSH;
-        }
-
         if (isStraight()) {
             return Combo.STRAIGHT;
         }
